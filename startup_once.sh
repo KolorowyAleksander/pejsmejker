@@ -5,6 +5,7 @@ mkfs.ext4 /dev/drbd0
 
 mount /dev/drbd0 /mnt
 cp /vagrant/editor.php /mnt/index.php
+chmod -R 777 /mnt
 umount /mnt
 
 drbdadm secondary d0
@@ -33,32 +34,10 @@ pcs resource create \
 pcs constraint colocation add Apache FloatingIPAddress INFINITY
 pcs constraint order FloatingIPAddress then Apache
 
-systemctl start drbd
-
-# create a drbd service
-# pcs cluster cib drbd_cfg
-
-# pcs -f drbd_cfg resource create \
-#     DRBDData ocf:linbit:drbd drbd_resource=d0 \
-#     op monitor interval=10s
-
-# pcs -f drbd_cfg resource master \
-#     DRBDDataClone DRBDData \
-#     master-max=1 master-node-max=1 clone-max=2 clone-node-max=1 notify=true
-
-# pcs -f drbd_cfg resource show
-
-# pcs cluster cib-push drbd_cfg
-
-# pcs status
-
 pcs cluster cib fs_cfg
 
 pcs -f fs_cfg resource create \
     DRBDFS Filesystem device="/dev/drbd0" directory="/var/www/html" fstype="ext4"
-
-# pcs -f fs_cfg constraint colocation add DRBDFS with DRBDDataClone INFINITY with-rsc-role=Master
-# pcs -f fs_cfg constraint order promote DRBDDataClone then start DRBDFS
 
 pcs -f fs_cfg constraint colocation add FloatingIPAddress with DRBDFS INFINITY
 pcs -f fs_cfg constraint order DRBDFS then FloatingIPAddress

@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-# php repos
-# yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
-# yum -y install yum-utils
-# yum -y install php56
-
 # drbd repos
 rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
@@ -36,3 +31,5 @@ cp /vagrant/corosync.conf /etc/corosync/corosync.conf
 
 # drbd config drbd
 cp /vagrant/d0.res /etc/drbd.d/d0.res
+
+cp /vagrant/httpd.conf /etc/httpd/conf/httpd.conf

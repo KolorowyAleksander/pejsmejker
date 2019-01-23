@@ -2,6 +2,7 @@
 
 # turn off selinux
 sed -i "s/^SELINUX=.*/SELINUX=permissive/g" /etc/selinux/config
+setenforce 0
 
 # run all services
 systemctl enable pcsd
