@@ -2,7 +2,7 @@ instances = []
 
 (1..3).each do |n| 
   instances.push({
-    :name => "c#{n}",
+    :name => "n#{n}",
     :ip => "192.168.10.#{n+10}",
   })
 end
@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
       # run all the shit
       e.vm.provision "shell", path: "install.sh"
       e.vm.provision "shell", path: "startup.sh"
-      e.vm.provision "shell", path: "startup_once.sh" if instance[:name] == "c3"
+      # e.vm.provision "shell", path: "startup_once.sh" if instance[:name] == "n3"
     end
   end
 

@@ -1,4 +1,4 @@
-resource r0 {
+resource d0 {
 	net {
 		protocol C;
 	}
