@@ -15,21 +15,16 @@ yum -y install \
     kmod-drbd90
 
 # pcs pass
-echo CHANGEME | passwd --stdin hacluster
+echo kapparki | passwd --stdin hacluster
 
-# hosts
-(cat > /etc/hosts) <<EOF
-127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
-::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
-192.168.10.11   n1
-192.168.10.12   n2
-192.168.10.13   n3
-EOF
+# copy generated hosts
+cp /vagrant/hosts /etc/hosts
+
+# httpd config
+cp /vagrant/httpd.conf /etc/httpd/conf/httpd.conf
 
 #corosync config
 cp /vagrant/corosync.conf /etc/corosync/corosync.conf
 
 # drbd config drbd
 cp /vagrant/d0.res /etc/drbd.d/d0.res
-
-cp /vagrant/httpd.conf /etc/httpd/conf/httpd.conf
