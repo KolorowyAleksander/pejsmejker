@@ -31,5 +31,9 @@ Vagrant.configure("2") do |config|
       # e.vm.provision "shell", path: "startup_once.sh" if instance[:name] == "n3"
     end
   end
-
 end
+
+# system('vagrant ssh n1 -c "sudo systemctl start drbd"')
+# system('vagrant ssh n2 -c "sudo systemctl start drbd"')
+# system('vagrant ssh n3 -c "sudo systemctl start drbd"')
+# system('vagrant ssh n2 -c "sudo bash /vagrant/startup_once.sh"')

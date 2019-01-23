@@ -7,6 +7,8 @@ mount /dev/drbd0 /mnt
 cp /vagrant/editor.php /mnt/index.php
 umount /mnt
 
+drbdadm secondary d0
+
 # setup cluster
 pcs cluster auth n1 n2 n3 -u hacluster -p CHANGEME --force
 pcs cluster setup --force --name pejsmejker n1 n2 n3
